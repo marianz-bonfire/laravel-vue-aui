@@ -1,0 +1,16 @@
+textarea {
+    resize: none !important;
+}
+
+.tab-content > .active {
+    display: flex !important;
+    flex-direction: column;
+    flex: 1;
+}
+
+.form-control {
+    padding: 4px 8px !important;
+    &:focus {
+        box-shadow: none !important;
+    }
+}

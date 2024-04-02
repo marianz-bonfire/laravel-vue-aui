@@ -1,0 +1,27 @@
+html, body, #app {
+    height: 100%;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.bg--accent {
+    background-color: $accent;
+    &-secondary {
+        background-color: $secondary;
+    }
+}
+
+.page {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-top: 45px;
+}
+
+.page-subtitle {
+    font-weight: bold !important;
+}

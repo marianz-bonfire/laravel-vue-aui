@@ -1,0 +1,43 @@
+@import '~font-awesome';
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.vs__search, .vs__search:focus {
+    font-size: 12px !important;
+}
+
+.vdp-datepicker {
+    white-space: normal;
+    .vdp-datepicker__calendar {
+        width: 200px;
+        header {
+            line-height: 30px;
+        }
+        .cell {
+            height: 25px;
+            line-height: 25px;
+            &.month,
+            &.year {
+                font-size: 11px;
+            }
+        }
+    }
+    input[type="text"] {
+        width: 100%;
+        border: 1px solid #ced4da;
+        padding: 3px 6px;
+        &:focus {
+            color: #495057;
+            border-color: #a1cbef;
+            background-color: #fff;
+            outline: 0;
+        }
+    }
+}
+
+.va-icon-ml {
+    margin-left: 10px !important;
+}
+
+.va-icon-mr {
+    margin-right: 10px !important;
+}

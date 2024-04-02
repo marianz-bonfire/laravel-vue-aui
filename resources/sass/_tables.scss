@@ -1,0 +1,229 @@
+.table-layout td {
+    padding: 4px;
+}
+
+.row {
+    &-edit {
+        color: $blue;
+    }
+    &-delete {
+        color: $red;
+    }
+    &-approve {
+        color: $green;
+    }
+    &-list {
+        padding-left: 20px;
+        margin-bottom: 0px;
+        li {
+            font-size: 10px;
+        }
+    }
+    &-disabled {
+        color: $gray;
+        cursor: not-allowed;
+    }
+}
+
+.action-button {
+    cursor: pointer;
+}
+
+.table-design {
+    &-wrapper {
+        position: relative;
+        min-height: 300px;
+    }
+    table {
+        border-style: solid;
+        border-width: 1px;
+        thead {
+            th {
+                border-style: solid;
+                border-width: 1px;
+                padding: 4px;
+                text-align: center;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+        }
+        tbody,
+        tfoot {
+            td {
+                padding: 4px;
+                word-break: break-all;
+            }
+        }
+    }
+
+    &--striped-rows {
+        table {
+            tbody {
+                tr {
+                    &:nth-of-type(odd) {
+                        background-color: #fff !important;
+                    }
+                    &:nth-of-type(even) {
+                        background-color: #f0f0f0 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    &--full-width {
+        table {
+            width: 100%;
+        }
+    }
+
+    &--hoverable {
+        tbody {
+            tr {
+                &:hover {
+                    background-color: #eee;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &.table-design {
+            &--default {
+                tbody {
+                    tr {
+                        &:hover {
+                            background-color: darken(#fff, 10%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &--font-sm {
+        thead {
+            th {
+                font-size: 12px;
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    &--scrollable-y {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    &--default-table-structure {
+        thead {
+            display: table-header-group;
+        }
+        tbody {
+            display: table-row-group;
+        }
+        tfoot {
+            display: table-footer-group;
+        }
+    }
+
+    &--bordered {
+        tbody,
+        tfoot {
+            td {
+                border-style: solid;
+                border-width: 1px;
+            }
+        }
+    }
+
+    &--bordered-bottom {
+        tbody {
+            tr {
+                border-width: 1px;
+                border-style: solid;
+            }
+        }
+    }
+
+    &--default {
+        table {
+            border-color: #ccc;
+            thead {
+                background-color: #f2f2f2;
+                th {
+                    border-color: #ccc;
+                }
+            }
+            tbody,
+            tfoot {
+                tr {
+                    border-color: #ccc;
+                    td {
+                        border-color: #ccc;
+                    }
+                }
+            }
+        }
+    }
+
+    &--blue {
+        table {
+            border-color: #ccc;
+            thead {
+                background-color: #1C4D7C;
+                color: #fff;
+                th {
+                    border-color: #ccc;
+                }
+            }
+            tbody,
+            tfoot {
+                tr {
+                    border-color: #ccc;
+                    td {
+                        border-color: #ccc;
+                    }
+                }
+            }
+        }
+    }
+
+    &--black {
+        table {
+            border-color: #ccc;
+            thead {
+                background-color: #333333;
+                color: #fff;
+                th {
+                    border-color: #ccc;
+                }
+            }
+            tbody,
+            tfoot {
+                tr {
+                    border-color: #ccc;
+                    td {
+                        border-color: #ccc;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.tc--success {
+    background-color: #FCFFF5;
+    color: #2C664B;
+}
+
+.tc--danger {
+    background-color: #FFF6F6;
+    color: #9E3D49;
+}

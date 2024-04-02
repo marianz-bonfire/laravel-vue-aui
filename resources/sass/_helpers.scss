@@ -1,0 +1,66 @@
+.text {
+    &-white {
+        color: $white;
+    }
+    &-red {
+        color: $red;
+    }
+    &-orange {
+        color: $orange;
+    }
+    &-gray {
+        color: $gray;
+    }
+    &-green {
+        color: $green;
+    }
+}
+
+.flex {
+    &-column {
+        flex-direction: column !important;
+    }
+    &-1 {
+        flex: 1 !important;
+    }
+}
+
+.required {
+    color: $red;
+}
+
+.cursor {
+    &-pointer {
+        cursor: pointer;
+    }
+}
+
+.flexed-column-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.pl-5 {
+    padding-left: 2rem !important;
+}
+
+.pl-6 {
+    padding-left: 2.5rem !important;
+}
+
+.pl-7 {
+    padding-left: 3rem !important;
+}
+
+.pl-8 {
+    padding-left: 3.5rem !important;
+}
+
+.ws-nowrap {
+    white-space: nowrap !important;
+}
+
+.overflow-initial {
+    overflow: initial !important;
+}
