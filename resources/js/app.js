@@ -46,6 +46,7 @@ Vue.component('settings-top-bar', require('./layouts/SettingsTopBar.vue').defaul
 Vue.component('core', require('./views/Core.vue').default);
 Vue.component('login', require('./views/Login.vue').default);
 Vue.component('dashboard', require('./views/Dashboard.vue').default);
+Vue.component('coming-soon-page', require('./views/ComingSoon.vue').default);
 
 
 Vue.component('settings-profile', require('./views/Settings/Profile.vue').default);
@@ -57,42 +58,11 @@ Vue.component('settings-connected-apps', require('./views/Settings/ConnectedApps
 Vue.component('settings-preferences', require('./views/Settings/Preferences.vue').default);
 Vue.component('settings-email', require('./views/Settings/EmailSetup.vue').default);
 
-
 Vue.component('users', require('./views/Users/List.vue').default);
+Vue.component('users-detail', require('./views/Users/Detail.vue').default);
 
-Vue.component('branches', require('./views/Branches/List.vue').default);
-Vue.component('branches-detail', require('./views/Branches/Detail.vue').default);
-Vue.component('branches-view-key', require('./views/Branches/ViewKey.vue').default);
-Vue.component('assign-branch-admin', require('./views/Branches/AssignBranchAdmin.vue').default);
-Vue.component('branches-system-time-logs', require('./views/Branches/SystemTimeLogs.vue').default);
-
-Vue.component('departments-list', require('./views/Departments/List.vue').default);
+Vue.component('departments', require('./views/Departments/List.vue').default);
 Vue.component('positions', require('./views/Positions/List.vue').default);
-Vue.component('holidays', require('./views/Holidays/List.vue').default);
-
-Vue.component('employees-list', require('./views/Employees/List.vue').default);
-Vue.component('employees-detail', require('./views/Employees/Detail.vue').default);
-Vue.component('assign-employee', require('./views/Employees/AssignEmployee.vue').default);
-
-Vue.component('employee-schedules-list', require('./views/EmployeeSchedules/List.vue').default);
-Vue.component('employee-schedules-detail', require('./views/EmployeeSchedules/Detail.vue').default);
-
-Vue.component('time-keeping', require('./views/TimeKeeping/List.vue').default);
-Vue.component('time-corrections', require('./views/TimeCorrections/List.vue').default);
-
-Vue.component('user-list', require('./views/User/List.vue').default);
-Vue.component('user-detail', require('./views/User/Detail.vue').default);
-Vue.component('user-permissions', require('./views/User/Permissions.vue').default);
-
-Vue.component('roles-list', require('./views/Roles/List.vue').default);
-Vue.component('roles-detail', require('./views/Roles/Detail.vue').default);
-Vue.component('role-permissions', require('./views/Roles/Permissions.vue').default);
-
-Vue.component('administrative-permissions', require('./views/Administrative/Permissions.vue').default);
-Vue.component('administrative-access-codes', require('./views/Administrative/AccessCodes.vue').default);
-
-Vue.component('admin-settings', require('./views/Administrator/AdminSettings.vue').default);
-Vue.component('admin-audits', require('./views/Administrator/Audits.vue').default);
 
 
 /**
@@ -154,11 +124,11 @@ const app = new Vue({
                 },
                 theme: {
                     topbar: 'blue',
-                    minibar: 'blue',
+                    minibar: 'dark',
                 }
             },
             sidebar: {
-                theme: 'default',
+                theme: 'darker',
                 visible: false,
                 toggler: 'top',
                 showToggle: false,
@@ -171,34 +141,31 @@ const app = new Vue({
         }
     },
     created() {
-
-        let sidebarVisibility = localStorage.getItem('sidebar-visible') || false;
-        console.log(sidebarVisibility);
-        this.config.desktopSidebarWidth = sidebarVisibility == true ? 240 : 0;
-        this.sidebar.visible = sidebarVisibility;
-        //this.showSideBar(sidebarVisibility);
-
-        
-        const storedSidebarItems = JSON.parse(localStorage.getItem('sidebar-items') || '{}');
-        if (!!storedSidebarItems && !_.isEmpty(storedSidebarItems)) {
-            this.sidebar.groups = storedSidebarItems;
-        }
+       this.initStoredSidebar();
     },
     mounted() {
 
     },
     methods: {
+        initStoredSidebar() {
+            const storedSidebar = JSON.parse(localStorage.getItem('sidebar') || '{}');
+            if (!!storedSidebar && !_.isEmpty(storedSidebar)) {
+                this.sidebar.groups = storedSidebar.groups;
+                let sidebarVisibility = Boolean(storedSidebar.visible);
+                this.showSideBar(sidebarVisibility);
+            }
+        },
         showSideBar(value) {
             this.config.desktopSidebarWidth = value == true ? 240 : 0;
             this.sidebar.visible = value;
-
-            localStorage.setItem("sidebar-visible", value);
+            localStorage.setItem("sidebar", JSON.stringify(this.sidebar));
         },
         showAside() {
             this.$refs.rigthAside.open();
         },
         processing(value) {
             this.loading = value;
-        }
+        },
+
     }
 });

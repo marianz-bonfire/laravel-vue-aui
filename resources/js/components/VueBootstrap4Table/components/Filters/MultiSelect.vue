@@ -8,13 +8,12 @@
             </div>
             <va-card ref="vbt_dropdown_menu" v-if="isSingleMode">
                 <div slot="topLeft">
-                    <va-button icon-before="refresh" @click="selected_option_indexes = []" size="sm">Clear</va-button>
+                    <va-button icon-before="refresh" @click="resetSelectedOptions" size="sm">Clear</va-button>
                 </div>
-                <va-radio-group :vertical="true">
-                    <single-select-item v-for="(option, key) in options" :key="key" :index="key" :option="option"
-                        :is-single-mode="isSingleMode" :selectedOptionIndexes="selected_option_indexes"
-                        @on-select-option="addOption" @on-deselect-option="removeOption">
-                    </single-select-item>
+                <va-radio-group v-model="selected_option_values" :vertical="true">
+                    <va-radio v-for="(option, key) in options" :key="key" :index="key" :label="option.value" @change="handleRadioSelect($event, key)">
+                        {{ option.name}}
+                    </va-radio>
                 </va-radio-group>
             </va-card>
             <va-card ref="vbt_dropdown_menu" v-else>
@@ -42,12 +41,15 @@ import range from "lodash/range";
 
 import MultiSelectAllItem from "./MultiSelectAllItem.vue";
 import MultiSelectItem from "./MultiSelectItem.vue";
-import SingleSelectItem from "./SingleSelectItem.vue";
 
 import { EventBus } from '../../event-bus.js';
 
 export default {
     name: "MultiSelect",
+    components: {
+        MultiSelectItem,
+        MultiSelectAllItem,
+    },
     props: {
         column: {
             type: Object,
@@ -67,6 +69,7 @@ export default {
     data: function () {
         return {
             selected_option_indexes: [],
+            selected_option_values: [],
             canEmit: false
         };
     },
@@ -80,7 +83,7 @@ export default {
         // }
 
         EventBus.$on('reset-query', () => {
-            this.selected_option_indexes = [];
+            this.resetSelectedOptions();
         });
 
         let lastIndex = this.optionsCount - 1;
@@ -134,15 +137,13 @@ export default {
                 }
             }
         },
-
         resetSelectedOptions() {
             this.selected_option_indexes = [];
+            this.selected_option_values = [];
+        },
+        handleRadioSelect(event, index) {
+            this.addOption(index);
         }
-    },
-    components: {
-        MultiSelectItem,
-        MultiSelectAllItem,
-        SingleSelectItem
     },
     computed: {
         optionsCount() {
@@ -155,20 +156,11 @@ export default {
                 return title;
             }
 
-            if (this.selected_option_indexes.length > 0 && this.selected_option_indexes.length <= 1) {
+            if (this.selected_option_indexes.length == 1) {
                 return this.options[this.selected_option_indexes[0]].name;
-                // let filtered_options = filter(this.options, (option, index) => {
-                //     return includes(this.selected_option_indexes, index)
-                // });
-                // let names = map(filtered_options, (option) => {
-                //     return option.name
-                // });
-                // return join(names, ",  ");
             } else {
-                //return this.column.filter.selectedText.replace('{number}', this.selected_option_indexes.length);
-                return (!!this.column.filter.selectedText) ? this.column.filter.selectedText.replace('{number}', this.selected_option_indexes.length) : "Select options";
+                return this.options[this.selected_option_indexes[0]].name + "... (+"+ (this.selected_option_indexes.length - 1) + ")";
             }
-
         },
 
         mode() {

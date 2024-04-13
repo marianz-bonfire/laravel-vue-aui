@@ -3,7 +3,7 @@
         <div slot="left">
 
             <!--
-            <va-button v-if="$root.sidebar.toggler == 'top'" type="primary-dark" round @click="showSideBar">
+            <va-button v-if="$root.sidebar.toggler == 'top'" :type="buttonTheme" round @click="showSideBar">
                 <va-icon :type="sidebarVisibility ? 'close' : 'bars'" color="white"></va-icon>
             </va-button>
            
@@ -11,19 +11,20 @@
             -->
             <span class="menu-logo">
                 <img src="images/aui.png" height="40">
-            </span>            
-           <span class="menu-logo">
-               {{ $root.app.name }}
-           </span>
+            </span>
+            <span class="menu-logo">
+                {{ $root.app.name }}
+            </span>
             <va-dropdown class="mega-menu-item">
                 <div slot="trigger">
-                    <va-button type="primary-dark">
+                    <va-button :type="buttonTheme">
                         <va-icon type="th"></va-icon>
                     </va-button>
                 </div>
                 <div>
                     <li><a href="#">Nav item</a></li>
-                    <li class="aui-nav-selected"><a href="#nav-item-content"><span class="assistive">Selected item:</span>
+                    <li class="aui-nav-selected"><a href="#nav-item-content"><span class="assistive">Selected
+                                item:</span>
                             Interesting Nav Item</a></li>
                     <li><a href="#">Pull requests <va-badge>123</va-badge></a></li>
                     <li><a href="#dropdown2-nav1" aria-owns="dropdown2-nav1" aria-haspopup="true"
@@ -31,7 +32,8 @@
                     <li><a href="#">Overview</a></li>
                     <li><a href="#">Kitchen sink</a></li>
                     <hr />
-                    <li class="aui-nav-selected"><a href="#nav-item-content"><span class="assistive">Selected item:</span>
+                    <li class="aui-nav-selected"><a href="#nav-item-content"><span class="assistive">Selected
+                                item:</span>
                             Interesting Nav Item</a></li>
                     <li><a href="#">Regular Nav item</a></li>
                     <li><a href="#">Other Nav item</a></li>
@@ -39,12 +41,12 @@
                     <li><a href="#">Other Nav item</a></li>
                     <li><a href="#">Other Nav item</a></li>
                 </div>
-                
+
             </va-dropdown>
 
             <va-dropdown class="mega-menu-item">
                 <div slot="trigger">
-                    <va-button type="primary-dark">
+                    <va-button :type="buttonTheme">
                         Templates
                         <va-icon type="angle-down" margin="0 2px 0 10px"></va-icon>
                     </va-button>
@@ -69,7 +71,7 @@
             </va-dropdown>
             <va-dropdown class="mega-menu-item">
                 <div slot="trigger">
-                    <va-button type="primary-dark">Modules</va-button>
+                    <va-button :type="buttonTheme">Modules</va-button>
                 </div>
 
                 <div class="atl-navigation-menu">
@@ -111,7 +113,7 @@
 
             <va-dropdown class="mega-menu-item">
                 <div slot="trigger">
-                    <va-button type="primary-dark">Accessbility</va-button>
+                    <va-button :type="buttonTheme">Accessbility</va-button>
                 </div>
                 <div class="atl-navigation-menu">
                     <va-column :xs="8" :sm="8" :md="8" class="atl-navigation-menu__collections">
@@ -134,26 +136,48 @@
             </va-dropdown>
         </div>
         <div slot="right">
-            <va-input :clearable="clearable" icon="bell" placeholder="Search keyword..." v-on:mouseover="toggleSearchBar('xl')"  v-on:mouseout="toggleSearchBar('md')" :width="searchBarWidth"
+            <!--
+            <va-input :clearable="clearable" icon="bell" placeholder="Search keyword..." @blur="onBlur" @focus="onFocus" :width="searchBarWidth"
                 style="margin-right:7px;"></va-input>
-            <va-button type="primary-dark" round @click="showSuccess">
+            -->
+            <va-typeahead key="app-search"
+                show-clean 
+                :debounce="400" 
+                placeholder="Search github username"
+                @change="getGitResults"
+                :items="gitItems" 
+                :add-format="gitCallback" 
+                :clearable="clearable" 
+                icon="github" 
+                icon-style="brands" 
+                :limit="10"
+                @blur="onBlur"
+                 @focus="onFocus" 
+                 :width="searchBarWidth"
+                >
+                <template v-slot:item="slotProps">
+                    <div style="display:flex;align-items:center;">
+                        <img width="26px" height="26px" :src="slotProps.item.avatar_url" style="margin-right: 10px;" />
+                        <span>{{ slotProps.item.login }}</span>
+                    </div>
+                </template>
+            </va-typeahead>
+
+            <va-button :type="buttonTheme" round @click="showSuccess">
                 <va-icon type="bell" size="1.25em"></va-icon>
             </va-button>
-            <va-button type="primary-dark" round @click="openAdminAudits">
+            <va-button :type="buttonTheme" round @click="openAdminAudits">
                 <va-icon type="user" size="1.25em"></va-icon>
             </va-button>
-            <Avatar size="small"
-                    avatar="https://i.pravatar.cc/300?u=3ccbfc51-b8ed-4ed1-9042-0ea196af683b"
-                   status="approved"
-                   presence="online"/>
-            <va-button type="primary-dark" round @click="openAside">
+            <Avatar size="small" avatar="https://i.pravatar.cc/300?u=3ccbfc51-b8ed-4ed1-9042-0ea196af683b"
+                status="approved" presence="online" />
+            <va-button :type="buttonTheme" round @click="openAside">
                 <va-icon type="cog" size="1.25em"></va-icon>
             </va-button>
         </div>
     </va-topbar>
 </template>
 <script>
-
 export default {
     components: {
     },
@@ -169,12 +193,27 @@ export default {
             result: '',
             limit: 10,
             toggledSearchBar: false,
-            searchBarWidth: 'md',
+            expandSearchBar: false,
+            searchHistory: [],
         }
     },
     computed: {
-        avatarImage () {
+        buttonTheme() {
+            //return 'primary-'+ this.$root.config.theme.topbar;
+            return 'primary-dark';
+        },
+        avatarImage() {
             return '<img width="90px" height="90px" src=' + this.result.avatar_url + '"/>'
+        },
+
+        searchBarWidth() {
+            return this.expandSearchBar ? 'xl' : 'md';
+        }
+    },
+    created() {
+        let history = JSON.parse(localStorage.getItem('SearchHistory' || '{}'));
+        if (! _.isEmpty(history)) {
+            this.searchHistory = history;
         }
     },
     methods: {
@@ -185,13 +224,20 @@ export default {
         openAside() {
             this.$root.showAside();
         },
-        toggleSearchBar(value = 'md') {
-            console.log(value=='md' ? 'mouseout' : 'mouseover');
-            this.searchBarWidth = value;
-            this.$forceUpdate();
+        onBlur() {
+            this.expandSearchBar = false;
+        },
+        onFocus() {
+            this.expandSearchBar = true;
         },
         openAdminSettings() {
             window.open('/admin/settings', '_blank');
+        },
+
+        addHistory(item) {
+            this.searchHistory.push(item);
+
+            localStorage.setItem('SearchHistory', JSON.stringify(this.searchHistory));
         },
 
         openAdminAudits() {
@@ -222,23 +268,23 @@ export default {
                 duration: this.duration
             });
         },
-        getGitResults (query) {
+        getGitResults(query) {
             let self = this
             let xhr = new XMLHttpRequest()
             xhr.open('GET', 'https://api.github.com/search/users?q=' + query)
             xhr.onload = () => {
                 if (xhr.status === 200) {
-                let results = JSON.parse(xhr.responseText)
-                self.gitItems = results.items
+                    let results = JSON.parse(xhr.responseText)
+                    self.gitItems = results.items
                 }
             }
             xhr.send()
         },
-        gitCallback (item) {
-            console.log('You selected:', item)
-            this.result = item
-            this.$refs.modal.open()
-            return item.login
+        gitCallback(item) {
+            console.log('You selected:', item);
+            this.result = item;
+            this.addHistory(item);
+            return item.login;
         }
     }
 }
@@ -388,7 +434,7 @@ export default {
     margin-bottom: 0
 }
 
-.app-switch {   
+.app-switch {
     box-sizing: border-box;
     height: 100%;
     min-width: 0px;
@@ -399,12 +445,13 @@ export default {
         padding: var(1rem-200, 16px) var(0.5rem, 8px);
 
     }
-    &--section-header {   
+
+    &--section-header {
         animation: 500ms ease 0s 1 normal forwards running;
         opacity: 0;
         margin: 0px;
-        padding: 0px;        
-    }   
+        padding: 0px;
+    }
 
     &--section-list {
         list-style-type: none;
@@ -412,5 +459,4 @@ export default {
         margin: 0px;
     }
 }
-
 </style>

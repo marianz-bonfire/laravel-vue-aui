@@ -43,7 +43,6 @@ export default {
 </script>
 <style>
 input[type=search]::-webkit-search-cancel-button {
-  -webkit-appearance: searchfield-cancel-button;
   cursor: pointer;
 }
 </style>

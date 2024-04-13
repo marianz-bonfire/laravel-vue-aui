@@ -40,6 +40,7 @@
                     :actions="actions"
                     :total-rows="total_rows"
                     :show-loader="fetching"
+                    @refresh-data="paginate"
                     key="app-table"
                     >
                     <template slot="column_email" slot-scope="props">
@@ -52,15 +53,25 @@
                         <va-button icon-before="at" size="sm" class="fluid"> {{props.cell_value}}</va-button>
                     </template>
                     <template slot="first_name" slot-scope="props">
-                        {{props.cell_value}}    
+                        {{props.cell_value}}
                                         
                     </template>
                     <template slot="status" slot-scope="props">
-                        <va-lozenge :class="props.cell_value == true ? 'success' : 'danger'" size="lg" class="fluid" bold>{{props.cell_value}}</va-lozenge>
+                        <va-lozenge :type="props.cell_value == true ? 'success' : 'danger'" size="lg" class="fluid">{{props.cell_value}}</va-lozenge>
                     </template>
                     <template slot="avatar" slot-scope="props">
-                        <Avatar  size="small" :avatar="getAvatar(props.cell_value)"> </Avatar>
-                                
+                        <!--<Avatar  size="small" :avatar="getAvatar(props.cell_value)"> </Avatar> -->
+                        <va-dropdown key="app-dropdown">
+                            <div slot="trigger">
+                                <va-button icon-after="angle-down">
+                                    Action
+                                </va-button>
+                            </div>
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Delete</a></li>
+                            <hr />
+                            <li><a href="#">View</a></li>
+                        </va-dropdown>       
                     </template>
                 </VueBootstrap4Table>
             </div>
@@ -162,6 +173,7 @@ export default {
                     name: 'status',
                     label: 'Status',
                     sort: true,
+                    auto_fit: true,
                     filter: {
                         type: "select",
                         placeholder: "Select status",
@@ -264,8 +276,27 @@ export default {
             ],
             fetching: false,
             friends: [],
-            avatars: [...Array(10).keys()]
+            avatars: [...Array(10).keys()],
+            searchHistory: [],
+            avatarGroup: {
+                borderColor: '#0052CC',
+                count: 6,
+                middle: true,
+                slot: false,
+                size: 'lg',
+                avatars: [...Array(10).keys()]
+            }
         }
+    },
+    computed: {
+        users() {
+            // const visibleUsers = users.slice(0, this.avatarGroup.count);
+            // if (!this.avatarGroup.middle) {
+            //     visibleUsers.splice(2, 1);
+            // }
+            // return visibleUsers;
+            return this.avatars;
+        },
     },
     mounted() {
         // this.rows = users.USERS;

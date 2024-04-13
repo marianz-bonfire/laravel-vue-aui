@@ -1,12 +1,11 @@
 <template>
     <va-datepicker autofocus :clearable="clearable" v-model="selectedDateValue" ref="date_filter_input"
         :placeholder="column.filter.placeholder" :autoclose="column.filter.autoclose" :readonly="false"
-        :format="column.filter.format" @close="onClose" />
+        :format="column.filter.format" @close="onClose" @keyup.enter="updateFilterHandler($event)"/>
 
 </template>
 
 <script>
-import debounce from "lodash/debounce";
 import has from "lodash/has";
 
 
@@ -32,7 +31,7 @@ export default {
     },
     mounted() {
         if (has(this.column, 'filter.init.value')) {
-            this.$refs.date_filter_input.value = this.column.filter.init.value;
+            this.selectedDateValue = this.column.filter.init.value;
         }
 
         if (has(this.column, 'filter.filterOnPressEnter')) {
@@ -44,35 +43,36 @@ export default {
         }
 
         EventBus.$on('reset-query', () => {
-            if (this.$refs.date_filter_input) {
-                this.$refs.date_filter_input.value = "";
-            }
+            this.clearValue();
         });
     },
     methods: {
         clearFilter() {
-            this.$refs.date_filter_input.value = "";
-            this.selectedDateValue = '';
-            this.$forceUpdate();
+            this.clearValue();
             this.$emit('clear-filter', this.column);
         },
         onClose(value) {
             console.log('date filter onClose');
-            console.log(value);
-           
+            console.log(value);   
         },
         onChange(value) {
-            console.log('date filter watch');
-            console.log(value);
             this.$emit('update-filter', {
                 "value": value,
                 "column": this.column
             });
         },
+        updateFilterHandler: function (event) {
+            this.$emit('update-filter', {
+                "value": event.target.value,
+                "column": this.column
+            });
+        },
         cleared() {
-            console.log('date filter cleared');
             this.clearFilter();
         },
+        clearValue() {
+            this.selectedDateValue = '';
+        }
     },
     components: {
     },
@@ -82,14 +82,12 @@ export default {
         },
     },
     watch: {
-        'selectedDateValue': function (value) {
-            console.log('date filter watch');
-            console.log(value);
-            // if (!!value) {
-            //     this.onChange(value);
-            // } else {
-            //     this.clearFilter();
-            // }
+        'selectedDateValue': function (value) {          
+            if (!!value) {
+                //this.onChange(value);
+            } else {
+                //this.clearFilter();
+            }
         }
     }
 };

@@ -25,7 +25,7 @@
                             <tr v-if="showToolsRow" class="vbt-table-tools">
                                 <th :colspan="headerColSpan">
                                     <va-row :gutter="gutter">
-                                        <va-column :xs="8" v-if="global_search.visibility">
+                                        <va-column :xs="6" v-if="global_search.visibility">
                                             <va-row :gutter="gutter">
                                                 <va-column :xs="4" :class="global_search.class">
                                                     <!-- global search text starts here -->
@@ -45,7 +45,7 @@
                                                 <va-column :xs="8">
                                                     <!-- [START] global search buttons -->
                                                     <va-button v-if="show_refresh_button" icon-before="refresh"
-                                                        @click="$emit('refresh-data')">
+                                                        @click="refresh">
                                                         <slot name="refresh-button-text">
                                                             Refresh
                                                         </slot>
@@ -66,7 +66,7 @@
                                                 </va-column>
                                             </va-row>
                                         </va-column>
-                                        <va-column :xs="4">
+                                        <va-column :xs="6">
                                             <va-dropdown class="float-right action-buttons">
                                                 <div slot="trigger">
                                                     <va-button icon-after="ellipsis-v">
@@ -74,14 +74,16 @@
                                                     </va-button>
                                                 </div>
                                                 <va-card>
-                                                    <va-checkbox-group v-model="foods" :vertical="true">
+                                                    <va-checkbox-group :vertical="true">
                                                         <va-checkbox v-for="(column, key, index) in vbt_columns"
-                                                            :label="column.name" :key="column.key">
+                                                            :label="column.name" 
+                                                            :key="column.key"
+                                                            >
                                                             {{ column.label }}
                                                         </va-checkbox>
                                                     </va-checkbox-group>
                                                     <div slot="topLeft">
-                                                        <va-checkbox>Select All</va-checkbox>
+                                                        <va-checkbox v-model="allColumnsChecked" @input="handleCheckColumns">Select All</va-checkbox>
                                                     </div>
                                                 </va-card>
                                             </va-dropdown>
@@ -153,7 +155,7 @@
                         </thead>
                         <tbody>
                             <!-- filter row starts here -->
-                            <tr class="table-active" v-if="showFilterRow && vbt_rows.length > 0">
+                            <tr class="table-active" v-if="showFilterRow">
                                 <td v-show="checkbox_rows">
                                     <va-icon type="filter" color="#8993a4"></va-icon>
                                 </td>
@@ -162,18 +164,22 @@
                                         <template v-if="hasFilter(column)">
                                             <Simple v-if="column.filter.type == 'simple'" :column="column"
                                                 @update-filter="updateFilter" @clear-filter="clearFilter">
-                                                <template slot="vbt-simple-filter-clear-icon">
-                                                    <slot name="simple-filter-clear-icon">
-                                                        &#x24E7;
-                                                    </slot>
-                                                </template>
                                             </Simple>
+
                                             <DateFilter v-if="column.filter.type == 'date'" :column="column"
-                                                @update-filter="updateFilter" @clear-filter="clearFilter"></DateFilter>
+                                                @update-filter="updateFilter" @clear-filter="clearFilter">
+                                            </DateFilter>
+
+                                            <DateSelectorFilter v-if="column.filter.type == 'date-range'" :column="column"
+                                                @update-filter="updateFilter" @clear-filter="clearFilter">
+                                            </DateSelectorFilter>
+
                                             <MultiSelect v-if="column.filter.type == 'select'"
                                                 :options="column.filter.options" :column="column"
                                                 @update-multi-select-filter="updateMultiSelectFilter"
-                                                @clear-filter="clearFilter"></MultiSelect>
+                                                @clear-filter="clearFilter">
+                                            </MultiSelect>
+
                                             <template v-if="column.filter.type == 'custom'">
                                                 <slot :name="column.filter.slot_name" :column="column">
 
@@ -367,6 +373,7 @@ import orderBy from "lodash/orderBy";
 
 import CheckBox from "./CheckBox.vue";
 import DateFilter from "./Filters/DateFilter.vue";
+import DateSelectorFilter from "./Filters/DateSelectorFilter.vue";
 import MultiSelect from "./Filters/MultiSelect.vue";
 import Simple from "./Filters/Simple.vue";
 import Pagination from "./Pagination.vue";
@@ -375,7 +382,7 @@ import SelectAllRowsCheckBox from "./SelectAllRowsCheckBox.vue";
 import SortIcon from "./SortIcon.vue";
 
 import {
-EventBus
+    EventBus
 } from '../event-bus.js';
 
 export default {
@@ -442,10 +449,12 @@ export default {
             pagination_info: true,
             checkbox_rows: false,
             selected_items: [],
+            checked_columns: [],
             highlight_row_hover: true,
             highlight_row_hover_color: "#f9fafb",
             rows_selectable: false,
             allRowsSelected: false,
+            allColumnsChecked: false,
             multi_column_sort: false,
             loaderText: "Loading...",
             card_title: "",
@@ -476,7 +485,6 @@ export default {
             preservePageOnDataChange: false,
             canEmitQueries: false,
             isLoading: false,
-            foods: [],
         };
     },
     mounted() {
@@ -526,6 +534,7 @@ export default {
         SelectAllRowsCheckBox,
         Simple,
         DateFilter,
+        DateSelectorFilter,
         MultiSelect,
         SortIcon,
         Pagination,
@@ -630,7 +639,6 @@ export default {
 
         initGlobalSearch() {
             if (!!this.global_search && !!this.global_search.init && !!this.global_search.init.value) {
-                //this.$refs.global_search.value = this.global_search.init.value;
                 this.global_search_value = this.global_search.init.value;
                 this.query.global_search = this.global_search.init.value;
             }
@@ -751,11 +759,9 @@ export default {
 
             this.lastSelectedItemIndex = payload.rowIndex;
         },
-
         getActionButtonClass(action) {
             return has(action, 'class') ? action.class : " btn-secondary";
         },
-
         handleRemoveRow(payload) {
             let row = this.vbt_rows[payload.rowIndex];
             if (this.isShiftSelection(payload.shiftKey, payload.rowIndex)) {
@@ -823,6 +829,8 @@ export default {
                 }
             });
         },
+
+        
         getShiftSelectionRows(rowIndex) {
             let start = 0;
             let end = 0;
@@ -836,6 +844,8 @@ export default {
             return this.vbt_rows.slice(start, end);
         },
         updateFilter(payload) {
+            console.log('updateFilter');
+            console.log(payload);
             let value = (typeof payload.value == "number") ? payload.value.toString() : payload.value;
             let column = payload.column;
             let filter_index = findIndex(this.query.filters, {
@@ -928,7 +938,21 @@ export default {
                             flag = false;
                             return true;
                         }
-                    } else if (filter.type === "custom") {
+                    } else if (filter.type === "date-range") {
+                        if (this.dateRangeFilter(get(row, filter.name), filter.selected_options, filter.config)) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                            return true;
+                        }
+                    } else if (filter.type === "date") {
+                        if (this.dateFilter(get(row, filter.name), filter.text, filter.config)) {
+                            flag = true;
+                        } else {
+                            flag = false;
+                            return true;
+                        }
+                    }  else if (filter.type === "custom") {
                         let index = findIndex(this.vbt_columns, { name: filter.name });
                         if (index > -1) {
                             let column = this.vbt_columns[index];
@@ -1030,6 +1054,42 @@ export default {
 
             return value.indexOf(filter_text) > -1;
         },
+
+        dateFilter(value, filter_date, config) {
+            if (value == null || typeof value === "undefined") {
+                value = "";
+            }
+
+            if (typeof value !== "string") {
+                value = value.toString();
+            }
+
+            if (typeof filter_date !== "string") {
+                value = filter_date.toString();
+            }
+
+            let is_case_sensitive = (has(config, 'case_sensitive')) ? config.case_sensitive : false;
+
+            if (!is_case_sensitive) {
+                value = value.toLowerCase();
+                filter_date = filter_date.toLowerCase();
+            }
+
+            let date1 = new Date(value);
+            let date2 = new Date(filter_date);
+
+            return date1.toLocaleDateString('en-US') === date2.toLocaleDateString('en-US');
+        },
+        
+        dateRangeFilter(value, date, config) {
+
+            if (value == null || typeof value === "undefined") {
+                value = "";
+            }
+
+           
+        },
+
         multiSelectFilter(value, selected_options, config) {
 
             if (value == null || typeof value === "undefined") {
@@ -1046,14 +1106,6 @@ export default {
                 return (typeof option !== "string") ? option.toString().toLowerCase() : option.toLowerCase();
             });
             return includes(selected_options, value);
-            // let is_case_sensitive = (has(config,'case_sensitive')) ? config.case_sensitive : false;
-
-            // if (!is_case_sensitive) {
-            //     value = value.toLowerCase();
-            //     filter_text = filter_text.toLowerCase();
-            // }
-
-            // return value.indexOf(filter_text) > -1;
         },
 
         paginateFilter() {
@@ -1087,6 +1139,48 @@ export default {
             this.allRowsSelected = false;
         },
 
+        checkAllColumnChecbox() {
+            this.allColumnsChecked = true;
+        },
+
+        uncheckAllColumnCheckbox () {
+            this.allColumnsChecked = false;
+        },
+ 
+        addCheckedColumn(column) {
+            let index = findIndex(this.checked_columns, function (option_index) {
+                return option_index == index;
+            });
+            this.checked_columns.push(column);           
+        },
+        removedCheckedColumn (column) {
+            this.checked_columns.some((checkedColumn, index) => {
+                if (isEqual(item, checkedColumn)) {
+                    this.checked_columns.splice(index, 1);
+                    return true;
+                }
+            });
+        },
+
+        handleCheckColumns() {
+            // if (this.allColumnsChecked) {
+            //     let checked = [];
+            //     for (var column in this.vbt_columns) {
+            //         checked.push(column.name);
+            //     }
+            //     this.checked_columns = checked;
+            // } else {
+            //     this.checked_columns = [];
+            // }
+        },
+        updateCheckAllColumns: function(){
+            if(this.checked_columns.length == this.vbt_columns.length){
+                this.allColumnsChecked = true;
+            }else{
+                this.allColumnsChecked = false;
+            }
+        },
+
         isSortableColumn(column) {
             if (!has(column, 'sort')) {
                 return false;
@@ -1116,8 +1210,12 @@ export default {
 
         clearGlobalSearch() {
             this.query.global_search = "";
-            //this.$refs.global_search.value = "";
             this.global_search_value = "";
+        },
+        refresh() {
+            console.log('REFRESH DATA');
+            this.resetQuery();
+            EventBus.$emit('refresh-data');
         },
 
         resetQuery() {
@@ -1128,7 +1226,6 @@ export default {
                 global_search: ""
             }
 
-            //this.global_search.visibility && (this.$refs.global_search.value = "");
             this.global_search.visibility && (this.global_search_value = "");
 
             EventBus.$emit('reset-query');
@@ -1532,12 +1629,11 @@ export default {
                 this.resetSort();
             }
         },
-        'foods': {
+        'allColumnsChecked' : {
             handler: function (newVal, oldVal) {
+                console.log('allColumnsChecked');
                 console.log(newVal);
-
-            },
-            deep: true
+            }
         }
     }
 };
@@ -1642,10 +1738,6 @@ export default {
 
 input[type="search"] {
     -webkit-appearance: searchfield;
-}
-
-input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: searchfield-cancel-button;
 }
 
 /* Bootstrap 4 text input with clear icon on the right */

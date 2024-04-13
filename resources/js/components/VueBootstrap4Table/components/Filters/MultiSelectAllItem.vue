@@ -1,14 +1,5 @@
 <template>
     <div>
-        <!--
-        <a class="dropdown-item" href="" @click.prevent="handleSelect()">
-            <div class="custom-control custom-checkbox">              
-                <input type="checkbox" class="custom-control-input vbt-checkbox" v-model="option_selected"/>              
-            
-                <label class="custom-control-label">{{text}}</label>
-            </div>
-        </a>
-    -->
     <va-checkbox v-model="option_selected" @change="handleSelect">{{text}}</va-checkbox>
     </div>
 </template>

@@ -2,5 +2,5 @@
 @section('title', __('label.departments'))
 
 @section('content')
-    <departments-list></departments-list>
+    <departments></departments>
 @endsection

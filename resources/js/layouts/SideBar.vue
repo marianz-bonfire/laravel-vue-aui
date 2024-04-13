@@ -28,10 +28,7 @@ export default {
     },
     mounted() {
         if (! this.groups) {
-            const storedSidebarItems = JSON.parse(localStorage.getItem('sidebar-items') || '{}');
-            if (!! storedSidebarItems && ! _.isEmpty(storedSidebarItems)) {
-                this.groups = storedSidebarItems;         
-            }
+            
         }
     },
     methods: {
@@ -45,8 +42,18 @@ export default {
     },
     watch: {
         'groups': function(value) {
-            localStorage.setItem("sidebar-items", JSON.stringify(value));
+            
         },
     }
 }
 </script>
+
+<style>
+.va-sidebar--theme-default .va-sidebar-group-item.active .va-sidebar-group-item-icon {
+    color: #ffffff !important;
+}
+.va-sidebar--theme-default .va-sidebar-group-item.active {
+    color: #ffffff !important;
+    background: #0747a6;
+}
+</style>

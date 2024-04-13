@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.list');
+        return view('users.index');
     }
 
     /**
@@ -23,7 +23,27 @@ class UserController extends Controller
      */
     public function detail()
     {
-        return view('user.detail');
+        return view('users.detail');
+    }
+
+    /**
+     * Display page of user permissions.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function permissions()
+    {
+        return view('users.permissions');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get()
+    {
+        //
     }
 
     /**

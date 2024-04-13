@@ -1,8 +1,8 @@
 <template>
-    <va-input v-if="filterOnPressEnter" ref="simple_filter_input" autofocus :clearable="clearable"
+    <va-input v-if="filterOnPressEnter" ref="simple_filter_input" autofocus icon="filter" :clearable="clearable"
         :placeholder="column.filter.placeholder" v-model="inputValue" @keyup.enter="updateFilterHandler($event)"
         @input="onChange" @clean="cleared" />
-    <va-input v-else ref="simple_filter_input" autofocus :clearable="clearable" :placeholder="column.filter.placeholder"
+    <va-input v-else ref="simple_filter_input" autofocus icon="filter" :clearable="clearable" :placeholder="column.filter.placeholder"
         v-model="inputValue" @keyup.enter="updateFilter($event)" @input="onChange" @clean="cleared" />
 
 </template>
@@ -36,7 +36,6 @@ export default {
     },
     mounted() {
         if (has(this.column, 'filter.init.value')) {
-            //this.$refs.simple_filter_input.value = this.column.filter.init.value;
             this.inputValue = this.column.filter.init.value;
         }
 
