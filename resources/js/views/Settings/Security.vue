@@ -12,10 +12,10 @@
                 <va-form ref="form" type="vertical">
                     <div class="va-form-group">
                         <h4>Change your password</h4>
-                        <span>
+                        <p>
                             When you change your password, we keep you logged in to this device but may log you out
                             from your other devices.
-                        </span>
+                        </p>
                     </div>
                     <va-form-item label="Current pssword" need>
                         <va-input name="name" v-model="form.current_password" placeholder="Enter current password"
@@ -30,42 +30,45 @@
                     </va-form-item>
                     <div class="va-form-group">
                         <h4>Two-step verification</h4>
-                        <span>Keep your account extra secure with a second login step. Learn more</span>
-                        <br><br>
-                        <!--
-                        <a @click="navigateExternalLink('/settings/security/verification')">Manage two-step verification</a>
-                        -->
-                        <va-button size="md" icon-before="external-link-alt" @click="navigateExternalLink('/settings/security/verification')">
-                            Manage two-step verification
-                        </va-button>
+                        <p>Keep your account extra secure with a second login step. Learn more</p>
+                        <br>
+                        <va-form-item>
+                            <va-button size="md" icon-before="external-link-alt" @click="navigateExternalLink('/settings/security/verification')">
+                                Manage two-step verification
+                            </va-button>
+                        </va-form-item>
                     </div>
                     <div class="va-form-group">
                         <h4>API Tokens</h4>
-                        <span>
+                        <p>
                             A script or other process can use an API token to perform basic authentication with Jira
                             Cloud applications or Confluence Cloud.
                             You must use an API token if the Atlassian account you authenticate with has had two-step
                             verification enabled.
                             You should treat API tokens as securely as any other password. Learn more.
-                        </span>
-                        <br><br>
+                        </p>
+                        <br>
                         <!--
                         <a href="/settings/security/tokens">Create and manage API tokens</a>
                         -->
-                        <va-button size="md" icon-before="external-link-alt" @click="navigateExternalLink('/settings/security/tokens')">
-                            Create and manage API tokens
-                        </va-button>
+                        <va-form-item>
+                            <va-button size="md" icon-before="external-link-alt" @click="navigateExternalLink('/settings/security/tokens')">
+                                Create and manage API tokens
+                            </va-button>
+                        </va-form-item>
                     </div>
                     <div class="va-form-group">
                         <h4>Recent devices</h4>
-                        <span>If you've lost one of your devices or notice any suspicious activity, log out of all your
+                        <p>If you've lost one of your devices or notice any suspicious activity, log out of all your
                             devices and take steps to secure your account. Learn more
-                        </span>
-                        <br><br>
+                        </p>
+                        <br>
                         <!--
                         <a href="/settings/security/recent-devices">View and manage recent devices</a>
                         -->
-                        <va-button size="md" @click="navigateExternalLink('/settings/security/recent-devices')">View and manage recent devices<va-icon class="va-icon-ml" type="external-link-alt"/></va-button>
+                        <va-form-item>
+                            <va-button size="md" @click="navigateExternalLink('/settings/security/recent-devices')">View and manage recent devices<va-icon class="va-icon-ml" type="external-link-alt"/></va-button>
+                        </va-form-item>
                     </div>
                 </va-form>
             </div>
@@ -98,4 +101,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "resources/sass/_variables.scss";
+.va-form-group > h4, p {
+    margin-right: .625rem !important;
+    margin-left: .625rem !important;
+}
 </style>

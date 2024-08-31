@@ -11,13 +11,12 @@
             <div key="app-credential">
                 <va-form ref="form" type="vertical">
                     <div class="va-form-group">
-                        <span>
+                        <p>
                             Your API tokens need to be treated as securely as any other password. You can only create a maximum of 25 tokens at a time.
-                        </span>
-                        <br>
-                        <span>
+                        </p>
+                        <p>
                             New tokens may take up to a minute to work after they’ve been created.
-                        </span>
+                        </p>
                     </div>
                     <div class="va-form-group">
                         <va-table :hover="$root.config.hover" :size="$root.config.size" key="app-table">

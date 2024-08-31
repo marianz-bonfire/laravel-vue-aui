@@ -14,6 +14,7 @@
     >
       <img
         v-if="avatar && !error"
+        :class="avatarClass"
         draggable="false"
         :src="avatar"
         alt="avatar"
@@ -101,6 +102,14 @@
             status: {
                 type: String,
                 default: ''
+            },
+            rounded: {
+                type: Boolean,
+                default: true
+            },
+            bordered: {
+                type: Boolean,
+                default: true
             }
         },
         data() {
@@ -110,7 +119,13 @@
         },
         computed: {
             style() {
-                return ({ 'background-color': this.outline });
+                if (Boolean(this.bordered) == true) {
+                    return ({ 'background-color': this.outline });
+                }
+                return '';
+            },
+            avatarClass() {
+                return Boolean(this.rounded) == true ? 'rounded' : 'squared';
             }
         }
     };
@@ -152,12 +167,20 @@ a.wrapper:hover::after {
 }
 
 img {
-    border-radius: 50%;
-    height: 100%;
-    width: 100%;
     background: rgba(9, 30, 66, 0.13);
     user-select: none;
+    height: 100%;
+    width: 100%;
 }
+
+img.rounded {
+    border-radius: 50%;
+}
+
+img.squared {
+    border-radius: 10%;
+}
+
 
 .wrapper[size='xxlarge'] {
     height: 132px;

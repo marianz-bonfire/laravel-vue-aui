@@ -13,11 +13,9 @@
                 <va-form ref="form" type="vertical">
                     <div class="va-form-group">
                         <h4>Language & Region</h4>
-                        <span>
-                            Changes to your language and timezone will be reflected across Jira, Confluence, Trello,
-                            Bitbucket and directory.
+                        <p>Changes to your language and timezone will be reflected across Jira, Confluence, Trello,Bitbucket and directory.
                             Update your language and timezone for other products from your product settings.
-                        </span>
+                        </p>
                     </div>
                     <va-form-item label="Language" need>
                         <va-select v-model="animalValue" placeholder="Pick an animal" no-uncheck>
@@ -43,7 +41,7 @@
                     </va-form-item>
                     <div class="va-form-group">
                         <h4>Delete your account</h4>
-                        <span>When you delete your account, you lose access to Atlassian account services, and we permanently delete your personal data. You can cancel the deletion within 14 days.</span>
+                        <p>When you delete your account, you lose access to Atlassian account services, and we permanently delete your personal data. You can cancel the deletion within 14 days.</p>
                     </div>                    
                     <va-form-item>
                         <va-button type="danger" @click="">Delete account</va-button> &nbsp;
@@ -80,4 +78,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "resources/sass/_variables.scss";
+.va-form-group > h4, p {
+    margin-right: .625rem !important;
+    margin-left: .625rem !important;
+}
 </style>

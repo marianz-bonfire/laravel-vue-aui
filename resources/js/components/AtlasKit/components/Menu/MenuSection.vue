@@ -5,6 +5,10 @@
       class="menu-section-label"
     >
       {{ label }}
+      <span class="float-right">
+        <slot name="action"></slot>
+      </span>
+      <p v-if="description" class="menu-description">{{ description }}</p>
     </div>
     <slot/>
   </div>
@@ -15,6 +19,10 @@
        name: 'MenuSection',
         props: {
             label: {
+                type: String,
+                default: undefined
+            },
+            description: {
                 type: String,
                 default: undefined
             },
@@ -32,7 +40,6 @@
     }
 
     .menu-section-label {
-        text-transform: uppercase;
         font-size: 11px;
         line-height: 1.45455;
         font-weight: 700;
@@ -40,5 +47,14 @@
         margin-top: 14px;
         margin-bottom: 6px;
         padding: 0px 12px;
+    }
+    .menu-description {
+      font-size: 12px;
+      line-height: 16px;
+      font-weight:normal;
+      color: var(--ds-text-subtlest,#6b778c)
+    }
+    .float-right {
+      float: right;
     }
 </style>

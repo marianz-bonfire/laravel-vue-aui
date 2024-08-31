@@ -2,5 +2,5 @@
 @section('title', __('label.user_detail'))
 
 @section('content')
-    <user-detail></user-detail>
+    <users-detail></users-detail>
 @endsection

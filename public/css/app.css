@@ -3589,6 +3589,11 @@ textarea {
   margin-right: 10px !important;
 }
 
+.va-dropdown-con ul.va-dropdown-menu {
+  min-width: 200px !important;
+  max-height: 1500px !important;
+}
+
 /*!
  * # Semantic UI 2.5.0 - List
  * http://github.com/semantic-org/semantic-ui/

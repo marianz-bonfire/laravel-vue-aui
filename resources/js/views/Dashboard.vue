@@ -116,6 +116,20 @@
             </div>
         </va-aside>
         <va-aside placement="right" ref="myAside" style="margin-top:50px;">
+            <div class="account-drop-menu">
+                <va-user-item title="Mariano Degracia Jr" :description="`mariano.degracia@bonfire.com`"
+                    :avatar-image="avatarImage">
+                </va-user-item>
+                <va-user-item title="Mariano Degracia Jr" :description="`mariano.degracia@bonfire.com`"
+                    :avatar-image="avatarImage">
+                </va-user-item>
+                <va-user-item title="Mariano Degracia Jr" :description="`mariano.degracia@bonfire.com`"
+                    :avatar-image="avatarImage">
+                </va-user-item>
+                <va-user-item title="Mariano Degracia Jr" :description="`mariano.degracia@bonfire.com`"
+                    :avatar-image="avatarImage">
+                </va-user-item>
+            </div>
             <div style="padding:20px;">
                 <div class="ui list">
                     <div class="item">
@@ -173,11 +187,12 @@
 </template>
 
 <script>
+import VaUserItem from '../components/UserItem/VaUserItem.vue';
 import * as users from '../constants/users';
 export default {
 
     components: {
-
+VaUserItem,
     },
     data() {
         return {
@@ -268,7 +283,11 @@ export default {
                 if (index >= start && index < end) return true;
             });
             return this.sortedItems;
-        }
+        },
+        avatarImage() {
+            return 'https://i.pravatar.cc/300?u=3ccbfc51-b8ed-4ed1-9042-0ea196af683b' + Math.random();
+        },
+
     },
     methods: {
         paginate() {

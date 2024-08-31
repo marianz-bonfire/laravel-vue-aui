@@ -13,7 +13,7 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        return view('departments.list');
+        return view('departments.index');
     }
 
     /**
