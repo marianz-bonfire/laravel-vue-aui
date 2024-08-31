@@ -33,38 +33,16 @@
 
             </va-page-header>
             <div class="module-container" key="app-container">
-                <vue-good-table 
-                    :columns="columns" 
-                    :rows="rows" :fixed-header="true"
-                    :pagination-options="paginationOptions" 
-                    :select-options="{ 
-                        enabled: true,
-                        selectOnCheckboxOnly: true, // only select when checkbox is clicked instead of the row
-                        clearSelectionText: 'Clear',
-                    }"
-                    :sort-options="{ enabled: true, }"
-                    @on-select-all="onSelectAll" compactMode
-                    styleClass="vgt-table condensed">
-                    <div slot="emptystate">
-                        This will show up when there are no rows
-                    </div>
-                    <div slot="table-actions">
-                        <va-button round type="help"><va-icon type="question-circle" /></va-button>
-                        <va-button round type="default"><va-icon type="filter" /></va-button>
-                    </div>
-                </vue-good-table>
+                
             </div>
         </transition-group>
     </va-page>
 </template>
 
 <script>
-import { VueGoodTable } from '../../components/VueGoodTable';
-//import '../../components/VueGoodTable/dist/vue-good-table.css';
 
 export default {
     components: {
-        VueGoodTable
     },
     data() {
         return {

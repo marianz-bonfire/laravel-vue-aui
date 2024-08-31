@@ -34,6 +34,7 @@ export default {
                         icon: 'cog',
                         size: '1.5em',
                         tooltip: 'Settings',
+                        route: '/settings',
                         method: this.showSettings
                     },
                     {
@@ -105,13 +106,14 @@ export default {
         },
         showModules(event) {
             console.log(event);
-        },
-        showSettings() {
             this.VaModal.confirm({
                 title: 'Hello!',
                 message: `This modal exists to show how methods can be applied to Minibar items.`,
                 type: 'info'
             })
+        },
+        showSettings() {
+            window.open('/settings/profile', '_self');
         }
     }
 }

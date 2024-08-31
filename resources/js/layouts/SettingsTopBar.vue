@@ -58,7 +58,7 @@
                 <va-icon type="bell" size="1.25em"></va-icon>
             </va-button>
             <Avatar size="small"
-                    avatar="https://i.pravatar.cc/300?u=3ccbfc51-b8ed-4ed1-9042-0ea196af683b"
+                    :avatar="avatarImage"
                    status="approved"
                    presence="online"/>
         </div>
@@ -96,7 +96,7 @@ export default {
     },
     computed: {
         avatarImage () {
-            return '<img width="90px" height="90px" src=' + this.result.avatar_url + '"/>'
+            return 'https://i.pravatar.cc/300?u=3ccbfc51-b8ed-4ed1-9042-0ea196af683b'+ Math.random();
         },
     },
     methods: {

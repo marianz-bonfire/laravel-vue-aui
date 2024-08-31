@@ -10,36 +10,48 @@
             
             -->
             <span class="menu-logo">
-                <img src="images/aui.png" height="40">
+                <img src="/images/aui.png" height="40">
             </span>
             <span class="menu-logo">
                 {{ $root.app.name }}
             </span>
             <va-dropdown class="mega-menu-item">
                 <div slot="trigger">
-                    <va-button :type="buttonTheme">
+                    <va-button :type="buttonTheme">                        
                         <va-icon type="th"></va-icon>
                     </va-button>
                 </div>
                 <div>
-                    <li><a href="#">Nav item</a></li>
-                    <li class="aui-nav-selected"><a href="#nav-item-content"><span class="assistive">Selected
-                                item:</span>
-                            Interesting Nav Item</a></li>
-                    <li><a href="#">Pull requests <va-badge>123</va-badge></a></li>
-                    <li><a href="#dropdown2-nav1" aria-owns="dropdown2-nav1" aria-haspopup="true"
-                            class="aui-dropdown2-trigger">Dropdown</a></li>
-                    <li><a href="#">Overview</a></li>
-                    <li><a href="#">Kitchen sink</a></li>
+                    <MenuSection label="REcommended" description="Ship faster with marketplace apps that integrate your team’s tools with Jira."> </MenuSection>
+                    <li>
+                        <a href="#">
+                            <va-user-item title="Jira Service Management" description="Collaborative IT service management"
+                                avatar-image="https://flight-deck-assets-bifrost.prod-east.frontend.public.atl-paas.net/assets/image/logos/contrib/jira-service-management/icons/blue.svg">
+                            </va-user-item>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <va-user-item title="Product Discovery" description="Prioritize, collaborative, and deliver new ideas"
+                                avatar-image="https://flight-deck-assets-bifrost.prod-east.frontend.public.atl-paas.net/assets/image/logos/contrib/jira-product-discovery/icons/blue.svg">
+                            </va-user-item>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <va-user-item title="Confluence" description="Create, collaborative, and organize your work"
+                                avatar-image="https://flight-deck-assets-bifrost.prod-east.frontend.public.atl-paas.net/assets/image/logos/contrib/confluence/icons/blue.svg">
+                            </va-user-item>
+                        </a>
+                    </li>
                     <hr />
-                    <li class="aui-nav-selected"><a href="#nav-item-content"><span class="assistive">Selected
-                                item:</span>
-                            Interesting Nav Item</a></li>
-                    <li><a href="#">Regular Nav item</a></li>
-                    <li><a href="#">Other Nav item</a></li>
-                    <hr />
-                    <li><a href="#">Other Nav item</a></li>
-                    <li><a href="#">Other Nav item</a></li>
+                    <li>
+                        <a href="#">
+                            <va-user-item title="More Atlassian Products" description=""
+                            avatar-image="https://img.icons8.com/?size=512&id=Wqm6Mn3cs2BJ&format=png">
+                            </va-user-item>
+                        </a>
+                    </li>
                 </div>
 
             </va-dropdown>
@@ -51,30 +63,41 @@
                         <va-icon type="angle-down" margin="0 2px 0 10px"></va-icon>
                     </va-button>
                 </div>
-
-                <li><a href="#">Nav item</a></li>
-                <li class="aui-nav-selected"><a href="#nav-item-content"><span class="assistive">Selected item:</span>
-                        Interesting Nav Item</a></li>
-                <li><a href="#">Pull requests <va-badge>123</va-badge></a></li>
-                <li><a href="#dropdown2-nav1" aria-owns="dropdown2-nav1" aria-haspopup="true"
-                        class="aui-dropdown2-trigger">Dropdown</a></li>
-                <li><a href="#">Overview</a></li>
-                <li><a href="#">Kitchen sink</a></li>
-                <hr />
-                <li class="aui-nav-selected"><a href="#nav-item-content"><span class="assistive">Selected item:</span>
-                        Interesting Nav Item</a></li>
-                <li><a href="#">Regular Nav item</a></li>
-                <li><a href="#">Other Nav item</a></li>
-                <hr />
-                <li><a href="#">Other Nav item</a></li>
-                <li><a href="#">Other Nav item</a></li>
+              
+                <div class="account-drop-menu">
+                    <MenuSection label="Projects" description="Ship faster with marketplace apps that integrate your team’s tools with Jira."> </MenuSection>
+                    <div class="no-data">
+                        <no-data></no-data>
+                    </div>
+                    <hr/>
+                    <MenuSection label="Projects" description="Ship faster with marketplace apps that integrate your team’s tools with Jira."> </MenuSection>
+                    <li><a href="#">Nav item</a></li>
+                    <li class="aui-nav-selected">
+                        <a href="#nav-item-content">
+                            <span class="assistive">Selected item:</span> 
+                            <va-icon type="external-link-alt"></va-icon>
+                        </a>
+                    </li>
+                    <li><a href="#">Pull requests <va-badge>123</va-badge></a></li>
+                    <li><a href="#dropdown2-nav1" aria-owns="dropdown2-nav1" aria-haspopup="true" class="aui-dropdown2-trigger">Dropdown</a></li>
+                    <li><a href="#">Overview</a></li>
+                    <li><a href="#">Kitchen sink</a></li>
+                    <hr />
+                    <li class="aui-nav-selected"><a href="#nav-item-content"><span class="assistive">Selected item:</span> Interesting Nav Item</a></li>
+                    <li><a href="#">Regular Nav item</a></li>
+                    <li><a href="#">Other Nav item</a></li>
+                    <hr />
+                    <li><a href="#">Other Nav item</a></li>
+                    <li><a href="#">Other Nav item</a></li>
+                </div>
+               
+               
             </va-dropdown>
             <va-dropdown class="mega-menu-item">
                 <div slot="trigger">
                     <va-button :type="buttonTheme">Modules</va-button>
                 </div>
-
-                <div class="atl-navigation-menu">
+                <div class="atl-navigation-menu">                   
                     <div class="mega-menu-column">
                         <h3>Categories</h3>
                         <ul>
@@ -116,21 +139,57 @@
                     <va-button :type="buttonTheme">Accessbility</va-button>
                 </div>
                 <div class="atl-navigation-menu">
-                    <va-column :xs="8" :sm="8" :md="8" class="atl-navigation-menu__collections">
+                    <div class="atl-navigation-menu__collections">
                         <va-placeholder :rounded="$root.config.placeholder.rounded"
                             :centered="$root.config.placeholder.centered" :animated="$root.config.placeholder.animated"
                             :style="{ width: width + 'px' }">
                             <va-placeholder-heading :image="$root.config.placeholder.image" />
                             <va-placeholder-text :lines="3" />
                         </va-placeholder>
-                    </va-column>
-                    <va-column :xs="4" :sm="4" :md="4" class="atl-navigation-menu__sidebar">
-                        <va-collapse :accordion="accordion">
-                            <va-collapse-panel open header="Panel 1"> ... </va-collapse-panel>
-                            <va-collapse-panel header="Panel 2"> ... </va-collapse-panel>
-                            <va-collapse-panel header="Panel 3"> ... </va-collapse-panel>
-                        </va-collapse>
-                    </va-column>
+                        <li>
+                                <va-user-item title="Jira Service Management" description="Collaborative IT service management"
+                                    avatar-image="https://flight-deck-assets-bifrost.prod-east.frontend.public.atl-paas.net/assets/image/logos/contrib/jira-service-management/icons/blue.svg">
+                                </va-user-item>
+                        </li>
+                        <hr/>
+                        <li>
+                                <va-user-item title="Product Discovery" description="Prioritize, collaborative, and deliver new ideas"
+                                    avatar-image="https://flight-deck-assets-bifrost.prod-east.frontend.public.atl-paas.net/assets/image/logos/contrib/jira-product-discovery/icons/blue.svg">
+                                </va-user-item>
+                        </li>
+                    </div>
+                    <div class="atl-navigation-menu__sidebar">
+                        <MenuSection label="REcommended" description="Ship faster with marketplace apps that integrate your team’s tools with Jira."> </MenuSection>
+                        <li>
+                            <a href="#">
+                                <va-user-item title="Jira Service Management" description="Collaborative IT service management"
+                                    avatar-image="https://flight-deck-assets-bifrost.prod-east.frontend.public.atl-paas.net/assets/image/logos/contrib/jira-service-management/icons/blue.svg">
+                                </va-user-item>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <va-user-item title="Product Discovery" description="Prioritize, collaborative, and deliver new ideas"
+                                    avatar-image="https://flight-deck-assets-bifrost.prod-east.frontend.public.atl-paas.net/assets/image/logos/contrib/jira-product-discovery/icons/blue.svg">
+                                </va-user-item>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <va-user-item title="Confluence" description="Create, collaborative, and organize your work"
+                                    avatar-image="https://flight-deck-assets-bifrost.prod-east.frontend.public.atl-paas.net/assets/image/logos/contrib/confluence/icons/blue.svg">
+                                </va-user-item>
+                            </a>
+                        </li>
+                        <hr />
+                        <li>
+                            <a href="#">
+                                <va-user-item title="More Atlassian Products" description=""
+                                avatar-image="https://img.icons8.com/?size=512&id=Wqm6Mn3cs2BJ&format=png">
+                                </va-user-item>
+                            </a>
+                        </li>
+                    </div>
                 </div>
 
             </va-dropdown>
@@ -140,21 +199,10 @@
             <va-input :clearable="clearable" icon="bell" placeholder="Search keyword..." @blur="onBlur" @focus="onFocus" :width="searchBarWidth"
                 style="margin-right:7px;"></va-input>
             -->
-            <va-typeahead key="app-search"
-                show-clean 
-                :debounce="400" 
-                placeholder="Search github username"
-                @change="getGitResults"
-                :items="gitItems" 
-                :add-format="gitCallback" 
-                :clearable="clearable" 
-                icon="github" 
-                icon-style="brands" 
-                :limit="10"
-                @blur="onBlur"
-                 @focus="onFocus" 
-                 :width="searchBarWidth"
-                >
+            <va-typeahead key="app-search" show-clean icon="github" icon-style="brands"
+                placeholder="Search github username" :debounce="400" :items="gitItems" :add-format="gitCallback"
+                :clearable="clearable" :limit="10" :width="searchBarWidth" @change="getGitResults" @blur="onBlur"
+                @focus="onFocus">
                 <template v-slot:item="slotProps">
                     <div style="display:flex;align-items:center;">
                         <img width="26px" height="26px" :src="slotProps.item.avatar_url" style="margin-right: 10px;" />
@@ -169,8 +217,29 @@
             <va-button :type="buttonTheme" round @click="openAdminAudits">
                 <va-icon type="user" size="1.25em"></va-icon>
             </va-button>
-            <Avatar size="small" avatar="https://i.pravatar.cc/300?u=3ccbfc51-b8ed-4ed1-9042-0ea196af683b"
-                status="approved" presence="online" />
+            <va-dropdown class="mega-menu-item">
+                <div slot="trigger">
+                    <Avatar size="small" :avatar="avatarImage" />
+                </div>
+                <div class="account-drop-menu">
+                    <MenuSection label="Account"> </MenuSection>
+                    <va-user-item title="Mariano Degracia Jr" :description="`mariano.degracia@bonfire.com`"
+                        :avatar-image="avatarImage">
+                        <template slot="action">
+                            <va-button type="danger"><va-icon type="trash" /></va-button>
+                        </template>
+                    </va-user-item>
+                    <MenuSection> </MenuSection>
+                    <li><a href="#">Manage Account</a></li>
+                    <hr />
+                    <MenuSection label="TRELLO"> </MenuSection>
+                    <li><a href="#">Activity</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <hr />
+                    <li><a href="#">Logout</a></li>
+                </div>
+
+            </va-dropdown>
             <va-button :type="buttonTheme" round @click="openAside">
                 <va-icon type="cog" size="1.25em"></va-icon>
             </va-button>
@@ -178,8 +247,11 @@
     </va-topbar>
 </template>
 <script>
+import NoData from '../components/Messages/NoData.vue';
+import VaUserItem from '../components/UserItem/VaUserItem.vue';
 export default {
     components: {
+        VaUserItem, NoData,
     },
     data() {
         return {
@@ -195,15 +267,17 @@ export default {
             toggledSearchBar: false,
             expandSearchBar: false,
             searchHistory: [],
+            type: 'default',
         }
     },
     computed: {
+
         buttonTheme() {
             //return 'primary-'+ this.$root.config.theme.topbar;
             return 'primary-dark';
         },
         avatarImage() {
-            return '<img width="90px" height="90px" src=' + this.result.avatar_url + '"/>'
+            return 'https://i.pravatar.cc/300?u=3ccbfc51-b8ed-4ed1-9042-0ea196af683b' + Math.random();
         },
 
         searchBarWidth() {
@@ -212,7 +286,7 @@ export default {
     },
     created() {
         let history = JSON.parse(localStorage.getItem('SearchHistory' || '{}'));
-        if (! _.isEmpty(history)) {
+        if (!_.isEmpty(history)) {
             this.searchHistory = history;
         }
     },
@@ -357,9 +431,9 @@ export default {
 .atl-navigation-menu {
     margin: 0 auto;
     padding-right: 0px;
-    max-width: 1200px;
+    max-width: 1200px !important;
     position: relative;
-    width: 100%;
+    width: 100% !important;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-flex;
@@ -391,47 +465,48 @@ export default {
 
 .atl-navigation-menu__collections .adg-u-truncate,
 .atl-navigation-menu__sidebar .adg-u-truncate {
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 .atl-navigation-menu__collections li a,
 .atl-navigation-menu__sidebar li a {
-    color: #172b4d
+    color: #172b4d;
 }
 
 @media screen and (min-width: 768px) and (max-width: 99999px) {
     .atl-navigation-menu__collections {
-        width: 75%
+        width: 60%;
     }
 
     .atl-navigation-menu__sidebar {
-        width: 25%
+        width: 40%;
     }
 }
 
 .atl-navigation-menu__collections {
-    background-color: white
+    background-color: white;
 }
 
 .atl-navigation-menu__sidebar {
-    background-color: #f4f5f7
+    background-color: #f4f5f7;
 }
 
 .atl-navigation-menu__sidebar ul {
     list-style-type: none;
-    padding-left: 0
+    padding-left: 0;
 }
 
 .atl-navigation-menu__sidebar li {
-    display: block
+    display: block;
 }
 
 .atl-navigation-menu__sidebar li+li {
-    margin-top: 8px
+    margin-top: 8px;
 }
 
 .atl-navigation-menu__sidebar li a {
-    margin-bottom: 0
+    margin-bottom: 0;
+    text-decoration: none;
 }
 
 .app-switch {
@@ -458,5 +533,19 @@ export default {
         padding: 0px;
         margin: 0px;
     }
+}
+
+.account-drop-menu {
+    min-width: 400px;
+    max-width: 1200px;
+    max-height: 1000px !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translate3d(0, 0, 0);
+    scrollbar-width: thin;
+}
+.no-data {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 </style>

@@ -43,7 +43,7 @@
 
                 @yield('content')
 
-                <va-aside :placement="config.asidePlacement" ref="rigthAside" key="rigthAside">
+                <va-aside :placement="config.asidePlacement" :width="config.asideWidth"  ref="rigthAside" key="rigthAside">
                     <side-content></side-content>
                 </va-aside>
             

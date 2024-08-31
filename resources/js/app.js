@@ -32,7 +32,6 @@ const i18n = new VueInternationalization({
 Vue.component('modal', require('./components/Modal/Modal.vue').default);
 Vue.component('alert', require('./components/Messages/Alert.vue').default);
 Vue.component('dialog-box', require('./components/Messages/DialogBox.vue').default);
-Vue.component('dropdown-menu-button', require('./components/Dropdown/DropdownMenuButton.vue').default);
 
 // Layouts
 Vue.component('top-bar', require('./layouts/TopBar.vue').default);
@@ -98,6 +97,7 @@ const app = new Vue({
                 split: false,
 
                 asidePlacement: 'right',
+                asideWidth: 500,
                 gridGutter: 15,
                 cardElevation: 0,
                 cardPadding: 20,

@@ -16,14 +16,13 @@
             <div key="app-credential">
                 <va-form ref="form" type="vertical">
                     <div class="va-form-group">
-                        <span>
+                        <p>
                             View and manage devices where you’re currently logged in. 
                             If you’ve lost one of your devices or notice any suspicious activity, log out of all your devices and take steps to secure your account.
-                        </span>
-                        <br>
-                        <span>
+                        </p>
+                        <p>
                             Learn more about recently used devices.
-                        </span>
+                        </p>
                     </div>
                     <div class="va-form-group">
                         <va-table :hover="$root.config.hover" :size="$root.config.size" key="app-table">
@@ -101,4 +100,8 @@ export default {
     }
 }
 
+.va-form-group > h4, p {
+    margin-right: .625rem !important;
+    margin-left: .625rem !important;
+}
 </style>

@@ -14,9 +14,9 @@
                 <va-form ref="form" type="vertical">
                     <div class="va-form-group">
                         <h4>Apps with access to your accounts</h4>
-                        <span>
+                        <p>
                             You’ve given these apps permission to access information and to act on behalf of your accounts. If you do not want the app to have access, remove access for the app using the button below.
-                        </span>
+                        </p>
                     </div>
                     <div class="va-form-group">
                         <va-alert type="info">
@@ -53,4 +53,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "resources/sass/_variables.scss";
+.va-form-group > h4, p {
+    margin-right: .625rem !important;
+    margin-left: .625rem !important;
+}
 </style>

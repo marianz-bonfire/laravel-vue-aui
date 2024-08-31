@@ -14,25 +14,23 @@
             <div key="app-credential">
                 <va-form ref="form" type="vertical">
                     <div class="va-form-group">
-                        <span>
+                        <p>
                             Protect your account by adding an extra layer of security. A second login step can keep your account secure, even if your password is compromised. 
                             To enable it, all you need is a smart phone.
-                        </span>
-                        <br>
-                        <span>
+                        </p>
+                        <p>
                             Atlassian two-step verification is not applied if you login with Google, 
                             Microsoft or SAML single sign-on. We recommend using Google’s or your identity provider’s equivalent. Learn more about two-step verification.
-                        </span>
+                        </p>
                     </div>
                     <div class="va-form-group">
                         <h4>Set up two-step verification</h4>
-                        <span>
+                        <p>
                             Start by entering your password so that we know it’s you. Then we’ll walk you through two more simple steps.
-                        </span>
-                        <br><br>
-                        <span>
+                        </p>
+                        <p>
                             When you enable two-step verification, we keep you logged in to this device. We may log you out from your other devices. To log back in, enter your password and complete the second verification step.
-                        </span>
+                        </p>
                     </div>
                     <va-form-item label="Account pssword" need>
                         <va-input name="name" v-model="form.current_password" placeholder="Enter current password"
@@ -68,4 +66,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "resources/sass/_variables.scss";
+.va-form-group > h4, p, .va-alert {
+    margin-right: .625rem !important;
+    margin-left: .625rem !important;
+}
 </style>

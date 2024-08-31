@@ -10,9 +10,9 @@
                 <va-form ref="form" type="vertical">
                     <div class="va-form-group">
                         <h4>Current email</h4>
-                        <span>
+                        <p>
                             Your current email is <b>mariano.degracia.bonfire@gmail.com</b>
-                        </span>
+                        </p>
                     </div>
                     <div class="va-form-group">
                         <va-alert type="warning" title="Connected account">
@@ -28,9 +28,9 @@
                     </va-form-item>
                     <div class="va-form-group">
                         <h4>Email notifications</h4>
-                        <span>
+                        <p>
                             To manage marketing emails, visit the email preferences center.
-                        </span>
+                        </p>
                     </div>
                 </va-form>
             </div>
@@ -62,4 +62,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "resources/sass/_variables.scss";
+.va-form-group > h4, p, .va-alert {
+    margin-right: .625rem !important;
+    margin-left: .625rem !important;
+}
 </style>
